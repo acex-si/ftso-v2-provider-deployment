@@ -6,6 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - ./config/init.sql:/docker-entrypoint-initdb.d/db_init.sql
+      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
 
@@ -43,3 +44,6 @@ services:
     env_file:
       - ./mounts/scaling/.env
     command: "yarn start example_provider"
+
+volumes:
+  db_data:
