@@ -6,6 +6,8 @@ services:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - ./config/init.sql:/docker-entrypoint-initdb.d/db_init.sql
+    ports:
+      - "3306:3306"
 
   indexer:
     container_name: ${COMPOSE_PROJECT_NAME}-indexer
@@ -32,3 +34,12 @@ services:
       SIGNING_POLICY_PRIVATE_KEY: ${SIGNING_PK}
       PROTOCOL_MANAGER_SUBMIT_PRIVATE_KEY: ${SUBMIT_PK}
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
+
+  example-provider:
+    container_name: ${COMPOSE_PROJECT_NAME}-example-provider
+    image: ftso-v2-deployment/ftso-scaling
+    ports:
+      - "3101:3101"
+    env_file:
+      - ./mounts/scaling/.env
+    command: "yarn start example_provider"
