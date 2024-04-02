@@ -6,7 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - ./config/init.sql:/docker-entrypoint-initdb.d/db_init.sql
-      - indexer_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
     healthcheck:
@@ -49,13 +49,13 @@ services:
 
   example-provider:
     container_name: ${COMPOSE_PROJECT_NAME}-example-provider
-    image: ftso-v2-deployment/ftso-scaling
+    image: ghcr.io/flare-foundation/ftso-scaling:latest
     ports:
       - "3101:3101"
     env_file:
       - ./mounts/scaling/.env
-    command: "yarn start example_provider"
+    command: "node dist/apps/example_provider/apps/example_provider/src/main.js"
 
 volumes:
-  indexer_data:
+  db_data:
 
