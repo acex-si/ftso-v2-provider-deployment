@@ -41,7 +41,7 @@ Each data provider in the FTSOv2 system must set up and register the following 5
 
 Accounts need to be funded for gas fees. The delegation account is used of establishing voter power, which can be achieved by wrapping funds directly or by delegation from other accounts. Wrapping can be done via the [portal](https://governance.dev.aflabs.org/) (make sure to pick Coston, not Coston2).
 
-Account registration is handled by the `EntityManager` smart contract, which for Coston can be accessed [here](https://coston-explorer.flare.network/address/0x35E74af3AfC322e1fCf187cB4970126D76fF9Dcd/write-contract#address-tabs).
+Account registration is handled by the `EntityManager` smart contract, which for Coston can be accessed [here](https://coston-explorer.flare.network/address/0x60A848E5Da796D741e559c170E851FC813061217/write-contract#address-tabs).
 
 The required contract invocation steps can be found in this [deployment task](https://github.com/flare-foundation/flare-smart-contracts-v2/blob/main/deployment/tasks/register-entities.ts#L33). You can check out the smart contract repo and run the task itself, or register accounts manually via the explorer UI link above. (It only needs to be done once).
 
@@ -81,16 +81,16 @@ COSTON_RPC=rpctocoston
 CHAIN_CONFIG="coston"
 ENTITIES_FILE_PATH="<path to account keys JSON>"
 ```
-*Note 1: do not use .env.template, instead just create .env using above example or running tasks will error*
+**Note 1: do not use .env.template, instead just create .env using above example or running tasks will error**
 
-*Note 2: do not use public rpc because you will get rate limited during the task*
+**Note 2: do not use public rpc because you will get rate limited during the task**
 
 - Run task:
 ```
 yarn hardhat --network coston register-entities
 ```
 
-## Install dependencies
+## Install dependencies and setup .env
 
 You will need:
 - [jq](https://jqlang.github.io/jq/)
@@ -101,52 +101,43 @@ You will need:
     - (macOS only) `brew install gettext`
 - [docker](https://www.docker.com/)
 
-## Set up repos and docker images
-
+Setup `.env`:
 - Use `.env.example` to create `.env` file, eg.: using `cp .env.example .env`
-
 - Set private keys for required accounts in the `.env` file.
-
 - Set `NODE_RPC_URL` and `NODE_API_KEY` (optional) with your Coston node RPC endpoint in the `.env` file. 
+- Set `VALUE_PROVIDER_URL` to the endpoint of your feed value provider. Leave default if using example provider below
 
-- Use `./repos pull` to clone (first time) or pull (when cloned directories exist) projects. If you switch branches in .env file or you get errors while using `./repos pull` command, use `./repos clean` to delete files followed by `./repos pull` to clone them again. 
-
-- Use `./build.sh` to build docker images for all projects.
+Populate configs for provider stack by running `./populate_configs.sh`. **NOTE: You'll need to rerun this command if you change your `.env` file.**
 
 ## Start provider stack
-
-Using `./run up` 4 services will start:
-- `c-chain-indexer-db` - MySQL instance.
-- `c-chain-indexer` – **Indexer**.
-- `flare-system-client` **System Client**.
-- `ftso-scaling` - **Data Provider**.
-*Note: you can stop everything with `./run down`*
-
-There will also be config files generated for everything inside `./mounts` directory.
+Since docker-compose.yaml is provided you can start everything with `docker compose up -d`
+and stop everything with `docker compose down`. Database is persisted in a named docker volume. 
+If you need to wipe database you need to remove the volume manually. When codebase is changed 
+new images need to be pulled with `docker compose pull`
 
 ## Feed value provider
 
 Start your own feed value provider or alternatively use example provider shipped with `ftso-scaling` project
 ```bash
-docker run --rm \
+docker run --rm -it \
   --env-file "mounts/scaling/.env" \
   --publish "0.0.0.0:3101:3101" \
   --network "ftso-v2-deployment_default" \
-  "ftso-v2-deployment/ftso-scaling" \
-  yarn start example_provider
+  ghcr.io/flare-foundation/ftso-scaling:latest \
+  node dist/apps/example_provider/apps/example_provider/src/main.js
 ```
 
 Once the container is running, you can find the API spec at: http://localhost:3101/api-doc.
 
 Note: some users reported issues with getting the provider to start. For initial testing a "fixed" value provider can be used that simply returns a constant instead of reading data from exchanges. It can be started by setting an extra env variable `VALUE_PROVIDER_IMPL=fixed`:
 ```bash
-docker run --rm \
+docker run --rm -it \
   --env-file "mounts/scaling/.env" \
   --env VALUE_PROVIDER_IMPL=fixed \
   --publish "0.0.0.0:3101:3101" \
   --network "ftso-v2-deployment_default" \
-  "ftso-v2-deployment/ftso-scaling" \
-  yarn start example_provider
+  ghcr.io/flare-foundation/ftso-scaling:latest \
+  node dist/apps/example_provider/apps/example_provider/src/main.js
 ```
 
 You should see the following in the logs:

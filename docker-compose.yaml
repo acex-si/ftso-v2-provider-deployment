@@ -6,27 +6,36 @@ services:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - ./config/init.sql:/docker-entrypoint-initdb.d/db_init.sql
-      - db_data:/var/lib/mysql
+      - indexer_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent", "--host", "localhost", "-proot"]
+      timeout: 20s
+      retries: 10
 
   indexer:
     container_name: ${COMPOSE_PROJECT_NAME}-indexer
-    image: ftso-v2-deployment/flare-system-c-indexer
+    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:latest
     volumes:
       - ./mounts/indexer/config.toml:/app/config.toml
     restart: unless-stopped
+    depends_on:
+      indexer-db:
+        condition: service_healthy
 
   data-provider:
     container_name: ${COMPOSE_PROJECT_NAME}-data-provider
-    image: ftso-v2-deployment/ftso-scaling
+    image: ghcr.io/flare-foundation/ftso-scaling:latest
     env_file:
       - ./mounts/scaling/.env
-    command: "yarn start"
+    command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
+    depends_on:
+      - indexer
 
   client:
     container_name: ${COMPOSE_PROJECT_NAME}-client
-    image: ftso-v2-deployment/flare-system-client
+    image: ghcr.io/flare-foundation/flare-system-client:latest
     volumes:
       - ./mounts/client/credentials/:/app/credentials/
       - ./mounts/client/config.toml:/app/config.toml
@@ -35,6 +44,8 @@ services:
       SIGNING_POLICY_PRIVATE_KEY: ${SIGNING_PK}
       PROTOCOL_MANAGER_SUBMIT_PRIVATE_KEY: ${SUBMIT_PK}
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
+    depends_on:
+      - indexer
 
   example-provider:
     container_name: ${COMPOSE_PROJECT_NAME}-example-provider
@@ -46,4 +57,5 @@ services:
     command: "yarn start example_provider"
 
 volumes:
-  db_data:
+  indexer_data:
+
