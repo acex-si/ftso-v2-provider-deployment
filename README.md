@@ -39,7 +39,9 @@ Each data provider in the FTSOv2 system must set up and register the following 5
 - `SigningPolicy`. Used for signature generation during the voting round, and reward epoch signing policy signing (it's a system protocol ran once during reward epoch to establish reward epoch settings, including valid voters and their weights).
 - `Delegation`. Account to which community should delegate funds (using WNat contract) to increase the vote power of the voter (identity/entity) - and also to later get the rewards. If not set, the identity account will be used.
 
-Accounts need to be funded for gas fees. The delegation account is used of establishing voter power, which can be achieved by wrapping funds directly or by delegation from other accounts. Wrapping can be done via the [portal](https://governance.dev.aflabs.org/) (make sure to pick Coston, not Coston2).
+Accounts need to be funded for gas fees. The delegation account is used of establishing voter power, which can be achieved by wrapping funds directly or by delegation from other accounts. Wrapping can be done via the [portal](https://governance.dev.aflabs.org/) (make sure to pick Coston, not Coston2). 
+
+Important: protocol operation uses normalized weights, and the delegation account should have <span style="color:red">at least 150 WCFLR</span> to obtain a non-0 vote power.
 
 Account registration is handled by the `EntityManager` smart contract, which for Coston can be accessed [here](https://coston-explorer.flare.network/address/0x60A848E5Da796D741e559c170E851FC813061217/write-contract#address-tabs).
 
@@ -71,7 +73,7 @@ Instructions for the Hardhat deployment task:
     "delegation": {
       "address": "0x95288e962ff1893ef6c32ad4143fffb12e1eb15f",
       "privateKey": "<private key hex>"
-    },
+    }
   }
 ]
 ```
@@ -107,7 +109,7 @@ Setup `.env`:
 - Set `NODE_RPC_URL` and `NODE_API_KEY` (optional) with your Coston node RPC endpoint in the `.env` file. 
 - Set `VALUE_PROVIDER_URL` to the endpoint of your feed value provider. Leave default if using example provider below
 
-Populate configs for provider stack by running `./populate_configs.sh`. **NOTE: You'll need to rerun this command if you change your `.env` file.**
+Populate configs for provider stack by running `./populate_config.sh`. **NOTE: You'll need to rerun this command if you change your `.env` file.**
 
 ## Start provider stack
 Since docker-compose.yaml is provided you can start everything with `docker compose up -d`
