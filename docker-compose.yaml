@@ -8,7 +8,7 @@ services:
       - ./config/init.sql:/docker-entrypoint-initdb.d/db_init.sql
       - db_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "13306:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent", "--host", "localhost", "-proot"]
       timeout: 20s
@@ -46,15 +46,6 @@ services:
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
     depends_on:
       - indexer
-
-  example-provider:
-    container_name: ${COMPOSE_PROJECT_NAME}-example-provider
-    image: ghcr.io/flare-foundation/ftso-scaling:latest
-    ports:
-      - "3101:3101"
-    env_file:
-      - ./mounts/scaling/.env
-    command: "node dist/apps/example_provider/apps/example_provider/src/main.js"
 
 volumes:
   db_data:
