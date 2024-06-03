@@ -1,5 +1,6 @@
 services:
   indexer-db:
+    profiles: [scaling]
     container_name: ${COMPOSE_PROJECT_NAME}-indexer-db
     image: "mysql"
     environment:
@@ -15,6 +16,7 @@ services:
       retries: 10
 
   indexer:
+    profiles: [scaling]
     container_name: ${COMPOSE_PROJECT_NAME}-indexer
     image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:latest
     volumes:
@@ -25,6 +27,7 @@ services:
         condition: service_healthy
 
   data-provider:
+    profiles: [scaling]
     container_name: ${COMPOSE_PROJECT_NAME}-data-provider
     image: ghcr.io/flare-foundation/ftso-scaling:latest
     env_file:
@@ -34,8 +37,9 @@ services:
       - indexer
 
   client:
+    profiles: [scaling]
     container_name: ${COMPOSE_PROJECT_NAME}-client
-    image: ghcr.io/flare-foundation/flare-system-client:latest@sha256:4d3ecd1c667db34caa64c0b4ccd2cdcb7c74fe6f14ed865e314c9c790cc79d42
+    image: ghcr.io/flare-foundation/flare-system-client:latest
     volumes:
       - ./mounts/client/config.toml:/app/config.toml
     environment:
@@ -43,6 +47,20 @@ services:
       SIGNING_POLICY_PRIVATE_KEY: ${SIGNING_PK}
       PROTOCOL_MANAGER_SUBMIT_PRIVATE_KEY: ${SUBMIT_PK}
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
+      PROTOCOL_X_API_KEY_100: "abcdef"
+    depends_on:
+      - indexer
+
+  fast-updates:
+    profiles: [fast-updates]
+    container_name: ${COMPOSE_PROJECT_NAME}-fast-updates
+    image: ghcr.io/flare-foundation/fast-updates/go-client:latest
+    volumes:
+      - ./mounts/fast-updates/config.toml:/app/config.toml
+    environment:
+      SIGNING_PRIVATE_KEY: ${SIGNING_PK}
+      ACCOUNTS: ${FAST_UPDATES_ACCOUNTS}
+      SORTITION_PRIVATE_KEY: ${FAST_UPDATES_SORTITION_PRIVATE_KEY}
     depends_on:
       - indexer
 

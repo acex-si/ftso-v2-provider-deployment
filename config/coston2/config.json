@@ -15,29 +15,29 @@
     "initialThreshold": 32768,
     "initialVoterData": [
         {
-            "voter": "0x1d415d28380ff51a507f7b176ca5f27833f7fffd",
+            "voter": "0xb63c1e02a41e975f4d826bd06eccafacd5038b5d",
             "delegationAddress": "0xb849b93b585effb7ce4b522ff88d9b3b24955f24",
-            "nodeIds": []
+            "nodeIds": ["0xa6cf908a6e9bcabb265f7cfc10f2892bf89b6b6c", "0x72425e3b7e8d42218e7dc394d93f2fd64b2a60f1"]
         },
         {
-            "voter": "0xf0b444bdc5522e908ff903e3f1730b5ab60b610a",
+            "voter": "0x2848c61d11ec0bb0212c012715569b49cec90fc2",
             "delegationAddress": "0x07f5053c867ae107db15a38aa4421b2c24ac4e51",
-            "nodeIds": []
+            "nodeIds": ["0xc20af3539881e6038a3c5a546e4f2e39d6d338e3", "0x4e15bc646c48b65a576623c7e4689200c0e3ef2d"]
         },
         {
-            "voter": "0xc6cb03a22213a3e02186a3126d47c7fba20e4ef5",
+            "voter": "0x858517d68bf814d3719770998473c58791eb8ead",
             "delegationAddress": "0xabaa1718c2d80fc037bf66e3f66f0975d67431a9",
-            "nodeIds": []
+            "nodeIds": ["0xe1338a26bf988e4b5651f22f9835c8dd16ecf3b1", "0xc68bb6e611eae238bff63bb8516b0543375e4b6e"]
         },
         {
-            "voter": "0x2e46e8d1f3636f7036978d054b0a07e7395053c8",
+            "voter": "0xee5cf0ca918515298e4ceea92766e541fb72f6db",
             "delegationAddress": "0xe80c39eae57c0359ee6c4086e2b22300353728e1",
-            "nodeIds": []
+            "nodeIds": ["0x664b4924a25af8be5f07052b2c2e582f7c10a654", "0x7ed15d3a6edb46932f13650b8d93a9c0caaeef8f"]
         },
         {
-            "voter": "0xca84d6086c5b32212a0cf1638803355d7be31482",
+            "voter": "0x08f332378fc4cf26d858386248e674e9f3cb658f",
             "delegationAddress": "0x55FcF7806F556204141Fe90FBe9Ce6207D9c52AC",
-            "nodeIds": []
+            "nodeIds": ["0x9dfabb9df1e96c6391c44d7ba383fc0856f37796", "0x1354016a11735733758a012c3c22b4552c0a06b0"]
         }
     ],
     "initialFeedDecimalsList": [
@@ -61,7 +61,7 @@
         {"feedId": {"category": 1, "name":"1000SATS/USD"}, "decimals": 10}
     ],
 
-    "firstVotingRoundStartTs": 1658429955,
+    "firstVotingRoundStartTs": 1658430000,
     "votingEpochDurationSeconds": 90,
     "firstRewardEpochStartVotingRoundId": 0,
     "rewardEpochDurationInVotingEpochs": 240,
@@ -69,25 +69,25 @@
     "messageFinalizationWindowInRewardEpochs": 30,
     "newSigningPolicyInitializationStartSeconds": 7200,
     "randomAcquisitionMaxDurationSeconds": 14400,
-    "randomAcquisitionMaxDurationBlocks": 1920,
+    "randomAcquisitionMaxDurationBlocks": 1440,
     "newSigningPolicyMinNumberOfVotingRoundsDelay": 3,
     "voterRegistrationMinDurationSeconds": 1800,
-    "voterRegistrationMinDurationBlocks": 240,
+    "voterRegistrationMinDurationBlocks": 180,
     "submitUptimeVoteMinDurationSeconds": 600,
-    "submitUptimeVoteMinDurationBlocks": 80,
+    "submitUptimeVoteMinDurationBlocks": 60,
     "signingPolicyThresholdPPM": 500000,
     "signingPolicyMinNumberOfVoters": 3,
     "rewardExpiryOffsetSeconds": 604800,
-    "rewardManagerId": 16,
-    "maxNodeIdsPerEntity": 0,
+    "rewardManagerId": 114,
+    "maxNodeIdsPerEntity": 4,
     "maxVotersPerRewardEpoch": 100,
     "wNatCapPPM": 25000,
     "signingPolicySignNonPunishableDurationSeconds": 1200,
-    "signingPolicySignNonPunishableDurationBlocks": 160,
-    "signingPolicySignNoRewardsDurationBlocks": 160,
+    "signingPolicySignNonPunishableDurationBlocks": 120,
+    "signingPolicySignNoRewardsDurationBlocks": 120,
     "feePercentageUpdateOffset": 2,
     "defaultFeePercentageBIPS": 2000,
-    "pChainStakeEnabled": false,
+    "pChainStakeEnabled": true,
 
     "ftsoProtocolId": 100,
     "minimalRewardsOfferValueNAT": 1000,
@@ -115,45 +115,13 @@
                 {"category": 1, "name": "SOL/USD"},
                 {"category": 1, "name": "USDC/USD"},
                 {"category": 1, "name": "USDT/USD"},
-                {"category": 1, "name": "XDC/USD"},
-                {"category": 1, "name": "TRX/USD"},
-                {"category": 1, "name": "DOT/USD"},
-                {"category": 1, "name": "SHIB/USD"},
-                {"category": 1, "name": "UNI/USD"},
-                {"category": 1, "name": "HBAR/USD"},
-                {"category": 1, "name": "NEAR/USD"},
-                {"category": 1, "name": "VET/USD"},
-                {"category": 1, "name": "RNDR/USD"},
-                {"category": 1, "name": "STRK/USD"},
-                {"category": 1, "name": "AAVE/USD"},
-                {"category": 1, "name": "QNT/USD"},
-                {"category": 1, "name": "XTZ/USD"},
-                {"category": 1, "name": "GALA/USD"},
-                {"category": 1, "name": "ATOM/USD"},
-                {"category": 1, "name": "ETC/USD"},
-                {"category": 1, "name": "BEAM/USD"},
-                {"category": 1, "name": "IMX/USD"},
-                {"category": 1, "name": "STX/USD"},
-                {"category": 1, "name": "APT/USD"},
-                {"category": 1, "name": "OP/USD"},
-                {"category": 1, "name": "ICP/USD"},
-                {"category": 1, "name": "INJ/USD"},
-                {"category": 1, "name": "TIA/USD"},
-                {"category": 1, "name": "GRT/USD"},
-                {"category": 1, "name": "SUI/USD"},
-                {"category": 1, "name": "LDO/USD"},
-                {"category": 3, "name": "XAU/USD"},
-                {"category": 3, "name": "XAG/USD"},
-                {"category": 3, "name": "XPT/USD"},
-                {"category": 2, "name": "EUR/USD"},
-                {"category": 2, "name": "JPY/USD"},
-                {"category": 2, "name": "AUD/USD"}
+                {"category": 1, "name": "XDC/USD"}
             ],
             "inflationShareBIPS": 10000,
             "minRewardedTurnoutBIPS": 5000,
             "mode": 0,
             "primaryBandRewardSharePPM": 700000,
-            "secondaryBandWidthPPMs": [400, 500, 100, 150, 200, 200, 200, 200, 200, 150, 200, 100, 100, 100, 100, 100, 100, 100, 400, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            "secondaryBandWidthPPMs": [400, 500, 50, 50, 50, 150, 50, 100, 100, 50, 100, 100, 100, 100, 100, 100, 100, 100, 400]
         }
     ],
 
@@ -161,16 +129,23 @@
         {
             "oldContract": false,
             "contractName": "FtsoRewardOffersManager",
-            "sharingBIPS": 5000,
+            "sharingBIPS": 3500,
             "topUpType": 1,
             "topUpFactorx100": 0
         },
         {
             "oldContract": true,
             "contractName": "FtsoRewardManager",
-            "sharingBIPS": 5000,
+            "sharingBIPS": 3500,
             "topUpType": 0,
             "topUpFactorx100": 400
+        },
+        {
+            "oldContract": true,
+            "contractName": "ValidatorRewardManager",
+            "sharingBIPS": 3000,
+            "topUpType": 1,
+            "topUpFactorx100": 0
         }
     ],
 
@@ -186,17 +161,32 @@
             "gasLimit": 40000000
         },
         {
+            "oldContract": true,
+            "contractName": "PChainStakeMirror",
+            "gasLimit": 15000000
+        },
+        {
+            "oldContract": true,
+            "contractName": "IncentivePool",
+            "gasLimit": 3000000
+        },
+        {
+            "oldContract": true,
+            "contractName": "DistributionToDelegators",
+            "gasLimit": 25000000
+        },
+        {
             "oldContract": false,
             "contractName": "FlareSystemsManager",
             "gasLimit": 40000000
         }
     ],
     "proposers": [
+        "0xC83Ec6a4aFf2099942836860A28C7e248Fabc32C",
         "0x1a16DC5ec4f48Ed769949855C3bC3a1d10c72A95",
-        "0x893baB99798BCF5e0faB09Ad5CE61872B951F0a5",
-        "0x2da78A7908A89038832f920869a5526c20689904"
+        "0x893baB99798BCF5e0faB09Ad5CE61872B951F0a5"
     ],
-    "maintainer": "0x25365AA95F57768d598cA6C938f93F7a8D2469E8",
+    "maintainer": "0xC83Ec6a4aFf2099942836860A28C7e248Fabc32C",
     "votingDelaySeconds": 3600,
     "votingPeriodSeconds": 86400,
     "thresholdConditionBIPS": 6600,
@@ -307,166 +297,6 @@
         },
         {
             "feedId": {"category": 1, "name": "XDC/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "TRX/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "DOT/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "SHIB/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "UNI/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "HBAR/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "NEAR/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "VET/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "RNDR/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "STRK/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "AAVE/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "QNT/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "XTZ/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "GALA/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "ATOM/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "ETC/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "BEAM/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "IMX/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "STX/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "APT/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "OP/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "ICP/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "INJ/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "TIA/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "GRT/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "SUI/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 1, "name": "LDO/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 3, "name": "XAU/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 3, "name": "XAG/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 3, "name": "XPT/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 2, "name": "EUR/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 2, "name": "JPY/USD"},
-            "rewardBandValue": 5000,
-            "inflationShare": 10000
-        },
-        {
-            "feedId": {"category": 2, "name": "AUD/USD"},
             "rewardBandValue": 5000,
             "inflationShare": 10000
         }
