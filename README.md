@@ -8,8 +8,9 @@ A data provider system for FTSOv2 consists of the following components:
 2. **Data Provider**. Provides commit, reveal, and median result data to System Client for submission.
 3. **Feed Value Provider**. Provides current values (prices) for a given set of feeds.
 4. **Indexer**. Monitors the blockchain and records all FTSOv2 related transactions and events.
+5. **Fast Updates Client**. Responsible for interaction with Fast Updates contracts, including data collection and submission and other system tasks.
 
-Reference implementations are provided for **Indexer**, **Flare System Client**, **Data Provider**, and providers are expected to plug in their own **Feed Value Provider** implementing a specific REST API (there is an sample implementation for testing).
+Reference implementations are provided for **Indexer**, **Flare System Client**, **Data Provider**, **Fast Updats Client**, and providers are expected to plug in their own **Feed Value Provider** implementing a specific REST API (there is an sample implementation for testing).
 
 ## Operation
 
@@ -39,7 +40,7 @@ Each data provider in the FTSOv2 system must set up and register the following 5
 - `SigningPolicy`. Used for signature generation during the voting round, and reward epoch signing policy signing (it's a system protocol ran once during reward epoch to establish reward epoch settings, including valid voters and their weights).
 - `Delegation`. Account to which community should delegate funds (using WNat contract) to increase the vote power of the voter (identity/entity) - and also to later get the rewards. If not set, the identity account will be used.
 
-Accounts need to be funded for gas fees. The delegation account is used of establishing voter power, which can be achieved by wrapping funds directly or by delegation from other accounts. Wrapping can be done via the [development portal](https://governance.dev.aflabs.org/) (make sure to pick Coston, not Coston2) for testnets and via [portal](https://portal.flare.network) for mainnets. 
+Accounts need to be funded for gas fees. The delegation account is used of establishing voter power, which can be achieved by wrapping funds directly or by delegation from other accounts. Wrapping can be done via the [development portal](https://governance.dev.aflabs.org/) (make sure to pick the correct network for testnets and via [portal](https://portal.flare.network) for mainnets. 
 
 Important: protocol operation uses normalized weights, and the delegation account should have <span style="color:red">at least 150 WCFLR</span> to obtain a non-0 vote power.
 
@@ -48,6 +49,13 @@ Account registration is handled by the `EntityManager` smart contract, which can
 - for [Songbird](https://songbird-explorer.flare.network/address/0x46C417D0760198E94fee455CE0e223262a3D0049/write-contract#address-tabs).
 
 The required contract invocation steps can be found in this [deployment task](https://github.com/flare-foundation/flare-smart-contracts-v2/blob/main/deployment/tasks/register-entities.ts#L33). You can check out the smart contract repo and run the task itself, or register accounts manually via the explorer UI link above. (It only needs to be done once).
+
+Additionally for fast updates:
+- Sortition key has to be generated (you can read more [here](https://github.com/flare-foundation/fast-updates/tree/main/go-client)). You can generate it using:
+```
+docker run --rm ghcr.io/flare-foundation/fast-updates/go-client:latest keygen
+```
+- Accounts for submission need to be generated and funded for gas prices. These can be any accounts not used for the 5 accounts above and don't need to be regsitered with the system in any way. We suggest using three to avoid nonce conflicts. You will need to pass their private keys in the `.env` file separated by commas.
 
 Instructions for the Hardhat deployment task:
 - Check out repo: https://github.com/flare-foundation/flare-smart-contracts-v2/
@@ -76,6 +84,7 @@ Instructions for the Hardhat deployment task:
       "address": "0x95288e962ff1893ef6c32ad4143fffb12e1eb15f",
       "privateKey": "<private key hex>"
     }
+    "sortitionPrivateKey": "<private key hex>"
   }
 ]
 ```
@@ -90,18 +99,26 @@ CHAIN_CONFIG="coston"
 # if songbird
 SONGBIRD_RPC=rpctosongbird
 CHAIN_CONFIG="songbird"
+
+# if coston2
+COSTON2_RPC=rpctocoston2
+CHAIN_CONFIG="coston2"
 ```
 **Note 1: do not use .env.template, instead just create .env using above example or running tasks will error**
 
 **Note 2: do not use public rpc because you will get rate limited during the task**
 
-- Run task:
+- Run tasks:
 ```
 # if coston
 yarn hardhat --network coston register-entities
+yarn hardhat --network coston register-public-keys
 
 # if songbird
 yarn hardhat --network songbird register-entities
+
+# if coston2
+yarn hardhat --network coston2 register-entities
 ```
 
 ## Install dependencies and setup .env
@@ -114,12 +131,15 @@ You will need:
 - [envsubst](https://www.gnu.org/software/gettext/manual/html_node/envsubst-Invocation.html)
     - (macOS only) `brew install gettext`
 - [docker](https://www.docker.com/)
+- [bash] (macOs only for updated version) `brew install bash`
 
 Setup `.env`:
 - Use `.env.example` to create `.env` file, eg.: using `cp .env.example .env`
 - Set private keys for required accounts in the `.env` file.
 - Set `NODE_RPC_URL` and `NODE_API_KEY` (optional) with your Coston or Songbird node RPC endpoint in the `.env` file. 
 - Set `VALUE_PROVIDER_URL` to the endpoint of your feed value provider. Leave default if using example provider below
+- Set `FAST_UPDATES_ACCOUNTS` to private keys of fast updates submission accounts separated by commas
+- Set `FAST_UPDATES_SORTITION_PRIVATE_KEY` to the key that was registered with the network
 
 Populate configs for provider stack by running `./populate_config.sh`. **NOTE: You'll need to rerun this command if you change your `.env` file.**
 
@@ -131,14 +151,12 @@ new images need to be pulled with `docker compose pull`
 
 ## Feed value provider
 
-Start your own feed value provider or alternatively use example provider shipped with `ftso-scaling` project
+Start your own feed value provider or alternatively use example provider:
 ```bash
 docker run --rm -it \
-  --env-file "mounts/scaling/.env" \
   --publish "0.0.0.0:3101:3101" \
   --network "ftso-v2-deployment_default" \
-  ghcr.io/flare-foundation/ftso-scaling:latest \
-  node dist/apps/example_provider/apps/example_provider/src/main.js
+  ghcr.io/flare-foundation/ftso-v2-example-value-provider
 ```
 
 Once the container is running, you can find the API spec at: http://localhost:3101/api-doc.
@@ -146,12 +164,10 @@ Once the container is running, you can find the API spec at: http://localhost:31
 Note: some users reported issues with getting the provider to start. For initial testing a "fixed" value provider can be used that simply returns a constant instead of reading data from exchanges. It can be started by setting an extra env variable `VALUE_PROVIDER_IMPL=fixed`:
 ```bash
 docker run --rm -it \
-  --env-file "mounts/scaling/.env" \
   --env VALUE_PROVIDER_IMPL=fixed \
   --publish "0.0.0.0:3101:3101" \
   --network "ftso-v2-deployment_default" \
-  ghcr.io/flare-foundation/ftso-scaling:latest \
-  node dist/apps/example_provider/apps/example_provider/src/main.js
+  ghcr.io/flare-foundation/ftso-v2-example-value-provider
 ```
 
 You should see the following in the logs:
@@ -188,4 +204,13 @@ Here are log samples indicating successful operation (`flare-system-client`):
 [03-04|06:59:20.532]	DEBUG	chain/tx_utils.go:128	Waiting for tx to be mined...
 [03-04|06:59:21.564]	DEBUG	chain/tx_utils.go:134	Tx mined, getting receipt 0xb371cae856bf1f37f52f9db556a346d0de35e2b02b73f87ec2dad63f044d7e8a
 [03-04|06:59:21.604]	DEBUG	chain/tx_utils.go:139	Receipt status: 1
+```
+
+Here are log samples indicating successful operation (`fast-updates`):
+
+**Note: depending on your weight it may take some time until you are selected for the fast-updates**
+```
+ftso-v2-deployment-fast-updates  | [04-25|09:00:32.456] INFO    provider/feed_provider.go:65    deltas: +++++++++++++++++++++-++++0+
+ftso-v2-deployment-fast-updates  | [04-25|09:00:32.456] INFO    client/client_requests.go:205   submitting update for block 14266248 replicate 0: +++++++++++++++++++++-++++0+
+ftso-v2-deployment-fast-updates  | [04-25|09:00:33.496] INFO    client/client_requests.go:239   successful update for block 14266248 replicate 0 in block 14266250
 ```

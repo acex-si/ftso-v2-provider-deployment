@@ -40,6 +40,10 @@ contract_address = "$VOTER_REGISTRY" # VoterRegistry
 topic = "undefined"
 
 [[indexer.collect_logs]]
+contract_address = "0x16EdaECC2D3713C3A94CCd1FFCd2589cfb7Ee9e0" # (Temporary) Old VoterRegistry for Songbird
+topic = "undefined"
+
+[[indexer.collect_logs]]
 contract_address = "$FLARE_SYSTEMS_CALCULATOR" # FlareSystemsCalculator
 topic = "undefined"
 
@@ -51,6 +55,14 @@ topic = "undefined"
 contract_address = "$FTSO_REWARD_OFFERS_MANAGER" # FtsoRewardOffersManager
 topic = "undefined"
 
+[[indexer.collect_logs]]
+contract_address = "$FAST_UPDATER" # FastUpdater
+topic = "undefined"
+
+[[indexer.collect_logs]]
+contract_address = "$FAST_UPDATE_INCENTIVE_MANAGER" # FastUpdateIncentiveManager
+topic = "undefined"
+
 [db]
 host = "indexer-db"
 port = 3306
@@ -59,7 +71,7 @@ username = "root"
 password = "root"
 log_queries = false
 drop_table_at_start = false
-history_drop = 604800 # 7 days
+history_drop = 3628800 # 42 days
 
 [logger]
 level = "INFO"
