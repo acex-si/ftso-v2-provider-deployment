@@ -8,36 +8,16 @@
     "governanceTimelock": 3600,
     "governanceExecutorPublicKey": "<use .env: GOVERNANCE_EXECUTOR_PUBLIC_KEY>",
 
-    "initialRewardEpochOffset": 4,
-    "initialRandomVotePowerBlockSelectionSize": 100,
+    "initialRewardEpochOffset": 0,
+    "initialRandomVotePowerBlockSelectionSize": 1000,
     "initialVoters": ["<use .env: INITIAL_VOTER_PRIVATE_KEY>"],
     "initialNormalisedWeights": [65535],
     "initialThreshold": 32768,
     "initialVoterData": [
         {
-            "voter": "0xb63c1e02a41e975f4d826bd06eccafacd5038b5d",
-            "delegationAddress": "0xb849b93b585effb7ce4b522ff88d9b3b24955f24",
-            "nodeIds": ["0xa6cf908a6e9bcabb265f7cfc10f2892bf89b6b6c", "0x72425e3b7e8d42218e7dc394d93f2fd64b2a60f1"]
-        },
-        {
-            "voter": "0x2848c61d11ec0bb0212c012715569b49cec90fc2",
-            "delegationAddress": "0x07f5053c867ae107db15a38aa4421b2c24ac4e51",
-            "nodeIds": ["0xc20af3539881e6038a3c5a546e4f2e39d6d338e3", "0x4e15bc646c48b65a576623c7e4689200c0e3ef2d"]
-        },
-        {
-            "voter": "0x858517d68bf814d3719770998473c58791eb8ead",
-            "delegationAddress": "0xabaa1718c2d80fc037bf66e3f66f0975d67431a9",
-            "nodeIds": ["0xe1338a26bf988e4b5651f22f9835c8dd16ecf3b1", "0xc68bb6e611eae238bff63bb8516b0543375e4b6e"]
-        },
-        {
-            "voter": "0xee5cf0ca918515298e4ceea92766e541fb72f6db",
-            "delegationAddress": "0xe80c39eae57c0359ee6c4086e2b22300353728e1",
-            "nodeIds": ["0x664b4924a25af8be5f07052b2c2e582f7c10a654", "0x7ed15d3a6edb46932f13650b8d93a9c0caaeef8f"]
-        },
-        {
-            "voter": "0x08f332378fc4cf26d858386248e674e9f3cb658f",
-            "delegationAddress": "0x55FcF7806F556204141Fe90FBe9Ce6207D9c52AC",
-            "nodeIds": ["0x9dfabb9df1e96c6391c44d7ba383fc0856f37796", "0x1354016a11735733758a012c3c22b4552c0a06b0"]
+            "voter": "0x564a2694342E57EE1223697b67086695695D1c57",
+            "delegationAddress": "0x50A1BCa4d5e91B3bcea7891742248F5BA5ACF0e5",
+            "nodeIds": []
         }
     ],
     "initialFeedDecimalsList": [
@@ -64,34 +44,34 @@
     "firstVotingRoundStartTs": 1658430000,
     "votingEpochDurationSeconds": 90,
     "firstRewardEpochStartVotingRoundId": 0,
-    "rewardEpochDurationInVotingEpochs": 240,
+    "rewardEpochDurationInVotingEpochs": 3360,
     "relayThresholdIncreaseBIPS": 12000,
-    "messageFinalizationWindowInRewardEpochs": 30,
+    "messageFinalizationWindowInRewardEpochs": 10,
     "newSigningPolicyInitializationStartSeconds": 7200,
-    "randomAcquisitionMaxDurationSeconds": 14400,
-    "randomAcquisitionMaxDurationBlocks": 1440,
+    "randomAcquisitionMaxDurationSeconds": 28800,
+    "randomAcquisitionMaxDurationBlocks": 14400,
     "newSigningPolicyMinNumberOfVotingRoundsDelay": 3,
     "voterRegistrationMinDurationSeconds": 1800,
-    "voterRegistrationMinDurationBlocks": 180,
+    "voterRegistrationMinDurationBlocks": 900,
     "submitUptimeVoteMinDurationSeconds": 600,
-    "submitUptimeVoteMinDurationBlocks": 60,
+    "submitUptimeVoteMinDurationBlocks": 300,
     "signingPolicyThresholdPPM": 500000,
-    "signingPolicyMinNumberOfVoters": 3,
-    "rewardExpiryOffsetSeconds": 604800,
-    "rewardManagerId": 114,
+    "signingPolicyMinNumberOfVoters": 1,
+    "rewardExpiryOffsetSeconds": 7776000,
+    "rewardManagerId": 14,
     "maxNodeIdsPerEntity": 4,
     "maxVotersPerRewardEpoch": 100,
     "wNatCapPPM": 25000,
     "signingPolicySignNonPunishableDurationSeconds": 1200,
-    "signingPolicySignNonPunishableDurationBlocks": 120,
-    "signingPolicySignNoRewardsDurationBlocks": 120,
-    "feePercentageUpdateOffset": 2,
+    "signingPolicySignNonPunishableDurationBlocks": 600,
+    "signingPolicySignNoRewardsDurationBlocks": 600,
+    "feePercentageUpdateOffset": 3,
     "defaultFeePercentageBIPS": 2000,
     "pChainStakeEnabled": true,
 
     "ftsoProtocolId": 100,
-    "minimalRewardsOfferValueNAT": 1000,
-    "decimalsUpdateOffset": 2,
+    "minimalRewardsOfferValueNAT": 100000,
+    "decimalsUpdateOffset": 3,
     "defaultDecimals": 5,
     "feedsHistorySize": 1000,
     "ftsoInflationConfigurations": [
@@ -111,7 +91,7 @@
                 {"category": 1, "name": "ARB/USD"},
                 {"category": 1, "name": "AVAX/USD"},
                 {"category": 1, "name": "BNB/USD"},
-                {"category": 1, "name": "MATIC/USD"},
+                {"category": 1, "name": "POL/USD"},
                 {"category": 1, "name": "SOL/USD"},
                 {"category": 1, "name": "USDC/USD"},
                 {"category": 1, "name": "USDT/USD"},
@@ -146,16 +126,9 @@
 
     "inflationReceivers": [
         {
-            "oldContract": false,
-            "contractName": "FtsoRewardOffersManager",
-            "sharingBIPS": 3500,
-            "topUpType": 1,
-            "topUpFactorx100": 0
-        },
-        {
             "oldContract": true,
             "contractName": "FtsoRewardManager",
-            "sharingBIPS": 3500,
+            "sharingBIPS": 7000,
             "topUpType": 0,
             "topUpFactorx100": 400
         },
@@ -198,16 +171,20 @@
             "oldContract": false,
             "contractName": "FlareSystemsManager",
             "gasLimit": 40000000
+        },
+        {
+            "oldContract": false,
+            "contractName": "FastUpdater",
+            "gasLimit": 15000000
         }
     ],
     "proposers": [
-        "0xC83Ec6a4aFf2099942836860A28C7e248Fabc32C",
-        "0x1a16DC5ec4f48Ed769949855C3bC3a1d10c72A95",
-        "0x893baB99798BCF5e0faB09Ad5CE61872B951F0a5"
+        "0xbe653c54df337f13fcb726101388f4a4803049f3",
+        "0xb5Dd6cA7b14bd7d2B6E296983D0AA0D373979CFE"
     ],
-    "maintainer": "0xC83Ec6a4aFf2099942836860A28C7e248Fabc32C",
-    "votingDelaySeconds": 3600,
-    "votingPeriodSeconds": 86400,
+    "maintainer": "0xbe653c54df337f13fcb726101388f4a4803049f3",
+    "votingDelaySeconds": 0,
+    "votingPeriodSeconds": 172800,
     "thresholdConditionBIPS": 6600,
     "majorityConditionBIPS": 5000,
     "proposalFeeValueNAT": 100,
@@ -238,7 +215,7 @@
         {"feedId": {"category": 1, "name": "ARB/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "AVAX/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "BNB/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
-        {"feedId": {"category": 1, "name": "MATIC/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "POL/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "SOL/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "USDC/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "USDT/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
@@ -265,28 +242,29 @@
     ],
     "defaultFeeWei": "1",
     "ftsoProxies": [
-        {"feedId": {"category": 1, "name": "FLR/USD"}, "symbol": "C2FLR"},
-        {"feedId": {"category": 1, "name": "XRP/USD"}, "symbol": "testXRP"},
-        {"feedId": {"category": 1, "name": "LTC/USD"}, "symbol": "testLTC"},
-        {"feedId": {"category": 1, "name": "XLM/USD"}, "symbol": "testXLM"},
-        {"feedId": {"category": 1, "name": "DOGE/USD"}, "symbol": "testDOGE"},
-        {"feedId": {"category": 1, "name": "ADA/USD"}, "symbol": "testADA"},
-        {"feedId": {"category": 1, "name": "ALGO/USD"}, "symbol": "testALGO"},
-        {"feedId": {"category": 1, "name": "BTC/USD"}, "symbol": "testBTC"},
-        {"feedId": {"category": 1, "name": "ETH/USD"}, "symbol": "testETH"},
-        {"feedId": {"category": 1, "name": "FIL/USD"}, "symbol": "testFIL"},
-        {"feedId": {"category": 1, "name": "ARB/USD"}, "symbol": "testARB"},
-        {"feedId": {"category": 1, "name": "AVAX/USD"}, "symbol": "testAVAX"},
-        {"feedId": {"category": 1, "name": "BNB/USD"}, "symbol": "testBNB"},
-        {"feedId": {"category": 1, "name": "MATIC/USD"}, "symbol": "testMATIC"},
-        {"feedId": {"category": 1, "name": "SOL/USD"}, "symbol": "testSOL"},
-        {"feedId": {"category": 1, "name": "USDC/USD"}, "symbol": "testUSDC"},
-        {"feedId": {"category": 1, "name": "USDT/USD"}, "symbol": "testUSDT"},
-        {"feedId": {"category": 1, "name": "XDC/USD"}, "symbol": "testXDC"}
+        {"feedId": {"category": 1, "name": "FLR/USD"}, "symbol": "FLR"},
+        {"feedId": {"category": 1, "name": "XRP/USD"}, "symbol": "XRP"},
+        {"feedId": {"category": 1, "name": "LTC/USD"}, "symbol": "LTC"},
+        {"feedId": {"category": 1, "name": "XLM/USD"}, "symbol": "XLM"},
+        {"feedId": {"category": 1, "name": "DOGE/USD"}, "symbol": "DOGE"},
+        {"feedId": {"category": 1, "name": "ADA/USD"}, "symbol": "ADA"},
+        {"feedId": {"category": 1, "name": "ALGO/USD"}, "symbol": "ALGO"},
+        {"feedId": {"category": 1, "name": "BTC/USD"}, "symbol": "BTC"},
+        {"feedId": {"category": 1, "name": "ETH/USD"}, "symbol": "ETH"},
+        {"feedId": {"category": 1, "name": "FIL/USD"}, "symbol": "FIL"},
+        {"feedId": {"category": 1, "name": "ARB/USD"}, "symbol": "ARB"},
+        {"feedId": {"category": 1, "name": "AVAX/USD"}, "symbol": "AVAX"},
+        {"feedId": {"category": 1, "name": "BNB/USD"}, "symbol": "BNB"},
+        {"feedId": {"category": 1, "name": "POL/USD"}, "symbol": "MATIC"},
+        {"feedId": {"category": 1, "name": "POL/USD"}, "symbol": "POL"},
+        {"feedId": {"category": 1, "name": "SOL/USD"}, "symbol": "SOL"},
+        {"feedId": {"category": 1, "name": "USDC/USD"}, "symbol": "USDC"},
+        {"feedId": {"category": 1, "name": "USDT/USD"}, "symbol": "USDT"},
+        {"feedId": {"category": 1, "name": "XDC/USD"}, "symbol": "XDC"}
     ],
-    "rNatName": "Reward Coston2Flare",
-    "rNatSymbol": "rC2FLR",
-    "rNatManager": "0xC83Ec6a4aFf2099942836860A28C7e248Fabc32C",
+    "rNatName": "Reward Flare",
+    "rNatSymbol": "rFLR",
+    "rNatManager": "0x4A0565f8960fEB35DC0E0c2CE0FE1FfbEa12fCA3",
     "rNatFirstMonthStartTs": 1717675200,
     "rNatFundingAddress": "0x0000000000000000000000000000000000000000",
     "rNatFundedByIncentivePool": true
